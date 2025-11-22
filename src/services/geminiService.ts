@@ -2,6 +2,14 @@ import { GoogleGenAI, Type, Schema } from "@google/genai";
 import { TransactionType } from "../types";
 import * as XLSX from 'xlsx';
 
+// Polyfill type for process to avoid needing @types/node
+declare const process: {
+  env: {
+    [key: string]: string | undefined;
+    API_KEY: string;
+  }
+};
+
 const getAIClient = () => {
   // Fix: Use process.env.API_KEY strictly as per coding guidelines.
   return new GoogleGenAI({ apiKey: process.env.API_KEY });
